@@ -1,6 +1,7 @@
 import numpy as np
 import argparse
 import time
+from sys import exit
 
 def model_bugs(bugs, stones):
     free_spaces = [stones]
@@ -32,10 +33,10 @@ start_time = time.time()
 
 if bugs > stones:
     print('Too much bugs!')
-    exit
+    exit()
 elif bugs <= 0:
     print('Bugs need to be positive!')
-    exit
+    exit()
 
 if mode == 'math':
     print('Running approximation...')
