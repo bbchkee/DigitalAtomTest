@@ -33,7 +33,7 @@ start_time = time.time()
 if bugs > stones:
     print('Too much bugs!')
     exit
-elif bugs < 0:
+elif bugs <= 0:
     print('Bugs need to be positive!')
     exit
 
