@@ -1,4 +1,3 @@
-from math import ceil, floor
 import numpy as np
 import argparse
 import time
