@@ -1,12 +1,17 @@
 SELECT 
     station_name AS station_name, 
-    SUM(consumption.volume_per_hour*tarif.hour_cost) AS total_cost, 
-    SUM(consumption.volume_per_hour*tarif.hour_cost)/COUNT(consumption) AS mean_cost_per_hour 
-    FROM station, tarif, consumption 
+    SUM(tarif.hour_cost)/COUNT(tarif) AS mean_cost_per_hour,
+    SUM(consumption.volume_per_hour*tarif.hour_cost) AS total_cost            
+FROM        
+    station INNER JOIN tarif 
+        ON tarif.station_id = station.id
+    LEFT OUTER JOIN consumption
+        ON consumption.tarif_name = tarif.tarif_name AND
+           consumption.hour >= tarif.tarif_begin AND 
+           consumption.hour < tarif.tarif_end
 WHERE 
-    tarif.station_id = station.id AND
-    consumption.tarif_name = tarif.tarif_name AND
-    consumption.hour >= tarif.tarif_begin AND 
-    consumption.hour < tarif.tarif_end 
+    tarif.station_id = station.id
 GROUP BY 
-    station.id;
+    station.id
+ORDER BY 
+    station.id
